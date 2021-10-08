@@ -48,8 +48,12 @@ function prenomvalid(inputprenom) {
     prenominvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
     prenominvalid.style.color = "red";
     prenominvalid.style.fontsize = "1px";//n'est pas pris en compte
-  }else {prenominvalid.innerHTML = "";}
-  };
+    return false;
+  }else {
+    prenominvalid.innerHTML = ""; 
+    return true;
+  }
+};
 
 //********* validation nom ************
 //récupération du champ nom
@@ -70,8 +74,12 @@ function nomvalid(inputnom) {
   if(validnom === false) {
     nominvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     nominvalid.style.color = "red";
-  }else {nominvalid.innerHTML = "";}
-  };
+    return false;
+  }else {
+    nominvalid.innerHTML = "";
+    return true;
+  }
+};
 
 //********* validation email ************
 //récupération du champ email
@@ -92,10 +100,13 @@ function emailvalid(inputemail) {
   if(validemail == false) {
     emailinvalid.innerHTML = "L'adresse électronique est invalide.";
     emailinvalid.style.color = "red";
+    return false;
   }else{
     emailinvalid.innerHTML = "L'adresse électronique est valide.";
-    emailinvalid.style.color = "green";}
-  };
+    emailinvalid.style.color = "green";
+    return true;
+  }
+};
 
 //********* validation nombre de concours ************
 //récupération du champ nombre de concours
@@ -116,6 +127,67 @@ function concoursvalid(inputconcours) {
   if(validconcours == false) {
     concoursinvalid.innerHTML = "Une valeur numérique doit être saisie.";
     concoursinvalid.style.color = "red";
-  }else {concoursinvalid.innerHTML = "";}
+    return false;
+  }else{
+    if(textconcours.value == 0){
+      concoursinvalid.innerHTML = "";
+      return true;}
+    else{
+      validCheckVille.innerHTML = "Veuillez cocher au moins une ville.";
+      concoursinvalid.innerHTML = "";
+    }
+    return true;
+  }
 };
 
+//********* validation bouton radio ************
+const radios = document.querySelectorAll(".location");
+const validCheckVille = document.getElementById("validation_checkbox_ville");
+
+radios.forEach((location) => {location.addEventListener("click",function(){
+  validRadioChecked(this);
+})
+});
+
+function validRadioChecked(inputradio){
+  validCheckVille.innerHTML = "";
+  return true;
+};
+
+
+//********* validation formulaire ************
+//********* validation conditions d'utilisation ************
+const conditions = document.getElementById("checkbox1");
+const validconditions = document.getElementById("valid_conditions");
+
+//Ecoute d'une sélection du bouton des conditions d'utilisation
+conditions.addEventListener("click", function(){
+  selecConditions(this);
+});
+
+function selecConditions(conditions){
+  validconditions.innerHTML = "";
+  return true;
+};
+
+const formSubmit = document.querySelector(".btn-submit");
+
+formSubmit.addEventListener("submit", function(){
+  e.preventDefault();
+  validate(this);
+});
+
+function validate(e){
+  if((prenomvalid) && (nomvalid) && (emailvalid) && (concoursvalid) && (validRadioChecked)){
+    if(selecConditions){
+      document.reserve.submit();
+      const validtext = document.getElementById("valid_soumission");
+      validtext.innerHTML = "Merci, votre réservation a été reçue!";
+      validtext.style.color = "green";
+    }else{
+      validconditions.innerHTML = "Veuillez sélectionner les conditions d'utilisation.";
+    };
+  }else{
+    return false;
+  }
+};

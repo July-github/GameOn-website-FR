@@ -58,7 +58,7 @@
           <div class="modal-body">
             <form
               name="reserve"
-              action="index.html"
+              action=""
               method="get"
               onsubmit="return validate();"
             >
@@ -115,7 +115,7 @@
               <div
                 class="formData">
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location1"
                   name="location"
@@ -126,7 +126,7 @@
                   New York</label
                 >
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location2"
                   name="location"
@@ -137,7 +137,7 @@
                   San Francisco</label
                 >
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location3"
                   name="location"
@@ -148,7 +148,7 @@
                   Seattle</label
                 >
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location4"
                   name="location"
@@ -159,7 +159,7 @@
                   Chicago</label
                 >
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location5"
                   name="location"
@@ -170,7 +170,7 @@
                   Boston</label
                 >
                 <input
-                  class="checkbox-input"
+                  class="checkbox-input location"
                   type="radio"
                   id="location6"
                   name="location"
@@ -188,7 +188,6 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
-                  checked
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>
@@ -205,6 +204,7 @@
                 </label>
                 <br>
               </div>
+              <p id="valid_conditions"></p>
               <input
                 class="btn-submit"
                 type="submit"
@@ -212,6 +212,7 @@
                 value="C'est parti"
               />
             </form>
+            <div id="valid_soumission"></div>
           </div>
         </div>
       </div>

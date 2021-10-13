@@ -1,5 +1,5 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  let x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
@@ -8,7 +8,7 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelector(".close");
@@ -18,158 +18,181 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
-  modalbg.style.display = "block";
-}
+  modalBg.style.display = "block";
+};
 
 // close modal form
 modalClose.addEventListener("click", closeModal); 
   
 function closeModal() {
-  modalbg.style.display = "none";
+  modalBg.style.display = "none";
 };
 
-//********* validation prenom ************
-//récupération du champ prénom
-const textprenom = document.getElementById("first");
-//récupération du champ du texte d'invalidation
-const prenominvalid = document.getElementById("validation_prenom");
+//********* validation firstname ************
+//getting field firstname
+const textFirstname = document.getElementById("first");
+//getting field invalid text
+const firstnameInvalid = document.querySelector(".validation_firstname");
 
-//Ecoute d'un changement du champ prénom
-textprenom.addEventListener("change", function() {
-  prenomvalid(this);
+//listening to a change from the field firstname
+textFirstname.addEventListener("change", function() {
+  validateFirstname(this);
 });
 
-function prenomvalid(inputprenom) {
-  //création de la regex
-  const regexprenom = /^[a-zA-Z]{2,}/g;
-  //test de la regex sur le champ prénom
-  const validprenom = regexprenom.test(textprenom.value);
-  if(validprenom === false) {
-    prenominvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-    prenominvalid.style.color = "red";
-    prenominvalid.style.fontsize = "1px";//n'est pas pris en compte
+function validateFirstname(inputfirstname) {
+  //regex creation
+  const regexFirstname = /^[a-zA-ZÀ-ÿ]{2,}/g;
+  //regex test on the field firstname
+  const validFirstname = regexFirstname.test(textFirstname.value);
+  if(validFirstname === false) {
+    firstnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du firstname.";
+    firstnameInvalid.style.color = "red";
     return false;
   }else {
-    prenominvalid.innerHTML = ""; 
+    firstnameInvalid.innerHTML = ""; 
     return true;
   }
 };
 
-//********* validation nom ************
-//récupération du champ nom
-const textnom = document.getElementById("last");
-//récupération du champ du texte d'invalidation
-const nominvalid = document.getElementById("validation_nom");
+//********* validation lastname ************
+//getting field lastname
+const textLastname = document.getElementById("last");
+//getting field invalid text
+const lastnameInvalid = document.querySelector(".validation_lastname");
 
-//Ecoute d'un changement du champ prénom
-textnom.addEventListener("change", function() {
-  nomvalid(this);
+//listening to a change from the field Lastname
+textLastname.addEventListener("change", function() {
+  validateLastname(this);
 });
 
-function nomvalid(inputnom) {
-  //création de la regex
-  const regexnom = /^[a-zA-Z]{2,}/g;
-  //test de la regex sur le champ nom
-  const validnom = regexnom.test(textnom.value);
-  if(validnom === false) {
-    nominvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    nominvalid.style.color = "red";
+function validateLastname(inputlastname) {
+  //regex creation
+  const regexLastname = /^[a-zA-ZÀ-ÿ]{2,}/g;
+  //regex test on the field Lastname
+  const validLastname = regexLastname.test(textLastname.value);
+  if(validLastname === false) {
+    lastnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    lastnameInvalid.style.color = "red";
     return false;
   }else {
-    nominvalid.innerHTML = "";
+    lastnameInvalid.innerHTML = "";
     return true;
   }
 };
 
 //********* validation email ************
-//récupération du champ email
-const textemail = document.getElementById("email");
-//récupération du champ du texte d'invalidation
-const emailinvalid = document.getElementById("validation_email");
+//getting field email
+const textEmail = document.getElementById("email");
+//getting field invalid text
+const emailInvalid = document.querySelector(".validation_email");
 
-//Ecoute d'un changement du champ email
-textemail.addEventListener("change", function() {
-  emailvalid(this);
+//listening to a change from the field email
+textEmail.addEventListener("change", function() {
+  validateEmail(this);
 });
 
-function emailvalid(inputemail) {
-  //création de la regex
-  const regexemail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/g;
-  //test de la regex sur le champ email
-  const validemail = regexemail.test(textemail.value);
-  if(validemail == false) {
-    emailinvalid.innerHTML = "L'adresse électronique est invalide.";
-    emailinvalid.style.color = "red";
+function validateEmail(inputemail) {
+  //regex creation
+  const regexEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/g;
+  //regex test on the field email
+  const validEmail = regexEmail.test(textEmail.value);
+  if(validEmail === false) {
+    emailInvalid.innerHTML = "L'adresse électronique est invalide.";
+    emailInvalid.style.color = "red";
     return false;
   }else{
-    emailinvalid.innerHTML = "L'adresse électronique est valide.";
-    emailinvalid.style.color = "green";
+    emailInvalid.innerHTML = "L'adresse électronique est valide.";
+    emailInvalid.style.color = "green";
     return true;
   }
 };
 
-//********* validation nombre de concours ************
-//récupération du champ nombre de concours
-const textconcours = document.getElementById("quantity");
-//récupération du champ du texte d'invalidation
-const concoursinvalid = document.getElementById("validation_concours");
+//********* validation birthdate ************
+//getting field birthdate
+const textBirthdates = document.getElementById("birthdate");
+//getting field invalid text
+const birthdateInvalid = document.querySelector(".validation_birthdate");
 
-//Ecoute d'un changement du champ nombre de concours
-textconcours.addEventListener("change", function() {
-  concoursvalid(this);
-});
-
-function concoursvalid(inputconcours) {
-  //création de la regex
-  const regexconcours = /[0-9]/g;
-  //test de la regex sur le champ nombre de concours
-  const validconcours = regexconcours.test(textconcours.value);
-  if(validconcours == false) {
-    concoursinvalid.innerHTML = "Une valeur numérique doit être saisie.";
-    concoursinvalid.style.color = "red";
-    return false;
-  }else{
-    if(textconcours.value == 0){
-      concoursinvalid.innerHTML = "";
-      return true;}
-    else{
-      validCheckVille.innerHTML = "Veuillez cocher au moins une ville.";
-      concoursinvalid.innerHTML = "";
-    }
-    return true;
-  }
-};
-
-//********* validation bouton radio ************
-const radios = document.querySelectorAll(".location");
-const validCheckVille = document.getElementById("validation_checkbox_ville");
-
-radios.forEach((location) => {location.addEventListener("click",function(){
-  validRadioChecked(this);
-})
-});
-
-function validRadioChecked(inputradio){
-  validCheckVille.innerHTML = "";
+textBirthdates.addEventListener("change", function(e){
+  let birthYear = e.target.value.split("-")[0];
+  let now = new Date();
+  let nowYear = now.getFullYear();
+  let diffYear = Math.abs(nowYear - birthYear);
+if (diffYear <= 120){
   return true;
+}else{
+  birthdateInvalid.innerHTML = "L'année n'est pas valide.";
+  return false
+  };
+})
+
+//********* validation number of competitions ************
+//getting field nombre de concours
+const textConcours = document.getElementById("quantity");
+//getting field invalid text
+const concoursInvalid = document.querySelector(".validation_concours");
+
+//listening to a change from the field nombre de concours
+textConcours.addEventListener("change", function() {
+  validateCompetitions(this);
+});
+function validateCompetitions(inputconcours) {
+  //regex creation
+  const regexConcours = /[0-9]/g;
+  //regex test on the field nombre de concours
+  const validConcours = regexConcours.test(textConcours.value);
+  if(validConcours === false) {
+    concoursInvalid.innerHTML = "Une valeur numérique doit être saisie.";
+    concoursInvalid.style.color = "red";
+    return false;
+  }else{
+    validateRadioChecked();
+  }
 };
+    //********* validation bouton radio ************
+    const locations = document.querySelectorAll(".location");
+    const validCheckVille = document.querySelector(".validation_checkbox_ville");
 
-
-//********* validation formulaire ************
-//********* validation conditions d'utilisation ************
+    function validateRadioChecked(inputradio){
+      let resConcours = parseInt(textConcours.value, 10);
+      if (Number.isNaN(resConcours)) {
+        concoursInvalid.innerHTML = "";
+        validCheckVille.innerHTML = "";
+        return NaN;
+      }else{
+        console.log("pas un NaN");
+          //listening to a change from the radio button
+          for(let i = 0; i < locations.length; i++){
+            location[i].addEventListener("click", function() {
+              if(location[i].checked === true){
+                validCheckVille.innerHTML = "";
+                return true;
+              }else{
+                validCheckVille.innerHTML = "Veuillez sélectionner une ville";
+                return false;}
+            });
+          };
+      }
+    };
+//********* validation terms of use ************
 const conditions = document.getElementById("checkbox1");
-const validconditions = document.getElementById("valid_conditions");
+const validConditions = document.querySelector(".valid_conditions");
 
 //Ecoute d'une sélection du bouton des conditions d'utilisation
 conditions.addEventListener("click", function(){
-  selecConditions(this);
+  selectConditions(this);
 });
 
-function selecConditions(conditions){
-  validconditions.innerHTML = "";
+function selectConditions(inputconditions){
+  if(conditions.checked === true){
+  validConditions.innerHTML = "";
   return true;
+  }else{
+    return false;
+  }
 };
 
+//********* validation formulaire ************
 const formSubmit = document.querySelector(".btn-submit");
 
 formSubmit.addEventListener("submit", function(){
@@ -178,16 +201,13 @@ formSubmit.addEventListener("submit", function(){
 });
 
 function validate(e){
-  if((prenomvalid) && (nomvalid) && (emailvalid) && (concoursvalid) && (validRadioChecked)){
-    if(selecConditions){
-      document.reserve.submit();
-      const validtext = document.getElementById("valid_soumission");
-      validtext.innerHTML = "Merci, votre réservation a été reçue!";
-      validtext.style.color = "green";
+  if((validateFirstname (textFirstname)) && (validateLastname (textLastname)) && (validateEmail (textEmail)) && (validateCompetitions (textConcours)) && (validateRadioChecked (locations)) && (selecConditions (conditions)))
+  { form.submit();
+      const validText = document.querySelector(".valid_soumission");
+      validText.style.display = "block";
+      validText.innerHTML = "Merci, votre réservation a été reçue!";
+      validText.style.color = "green";
     }else{
-      validconditions.innerHTML = "Veuillez sélectionner les conditions d'utilisation.";
-    };
-  }else{
-    return false;
-  }
+      return false;
+    }
 };

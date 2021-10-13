@@ -58,7 +58,7 @@
           <div class="modal-body">
             <form
               name="reserve"
-              action=""
+              action="index.html"
               method="get"
               onsubmit="return validate();"
             >
@@ -71,7 +71,7 @@
                   id="first"
                   name="first"
                 /><br>
-                <p id="validation_prenom"></p>
+                <p class="validation_firstname"></p>
               </div>
               <div
                 class="formData">
@@ -82,7 +82,7 @@
                   id="last"
                   name="last"
                 /><br>
-                <p id="validation_nom"></p>
+                <p class="validation_lastname"></p>
               </div>
               <div
                 class="formData">
@@ -93,7 +93,7 @@
                   id="email"
                   name="email"
                 /><br>
-                <p id="validation_email"></p>
+                <p class="validation_email"></p>
               </div>
               <div
                 class="formData">
@@ -104,12 +104,13 @@
                   id="birthdate"
                   name="birthdate"
                 /><br>
+                <p class="validation_birthdate"></p>
               </div>
               <div
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="text" class="text-control" id="quantity" name="quantity" min="0" max="99">
-                <p id="validation_concours"></p>
+                <p class="validation_concours"></p>
               </div>
               <p class="text-label">Quelles villes ?</p>
               <div
@@ -181,7 +182,7 @@
                   Portland</label
                 >
               </div>
-              <p id="validation_checkbox_ville"></p>
+              <p class="validation_checkbox_ville"></p>
               <div
                 class="formData">
                 <input
@@ -204,7 +205,7 @@
                 </label>
                 <br>
               </div>
-              <p id="valid_conditions"></p>
+              <p class="valid_conditions"></p>
               <input
                 class="btn-submit"
                 type="submit"
@@ -212,7 +213,7 @@
                 value="C'est parti"
               />
             </form>
-            <div id="valid_soumission"></div>
+            <div class="valid_soumission"></div>
           </div>
         </div>
       </div>

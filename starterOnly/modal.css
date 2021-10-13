@@ -332,6 +332,12 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
+/*Champs validation modal*/
+.validation_firstname, .validation_lastname, .validation_email, .validation_concours, .validation_checkbox_ville, .validation_valid_conditions {
+  font-size: 18px;
+}
+
 /* custom select styles */
 .custom-select {
   position: relative;

@@ -410,7 +410,6 @@ input[data-error]::after {
 .select-hide {
   display: none;
 }
-
 .select-items div:hover,
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
@@ -598,22 +597,19 @@ footer {
 .submit_text{
   display: none;
   text-align: center;
-  vertical-align: middle;
-  top: 0;
-  left: 0;
   color: white;
   font-size: 2rem;
-  border-radius: 10px;
   padding: 15px 8%;
-  margin: 5% auto;
-  width: 100%;
-  max-width: 500px;
-  opacity: 1;
+  margin: 10% 12%;
+  width: 75%;
+  height: 75%;
   background: #232323;
   border-radius: 10px;
-  overflow: hidden;
   position: absolute;
   z-index: 1;
+}
+.submit_text > button{
+  font-size: 90%;
 }
 .validation_soumission{
   margin: 250px 5px;

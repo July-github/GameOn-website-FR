@@ -29,9 +29,9 @@ function launchModal() {
 // close modal form
 modalClose.addEventListener("click", closeModal); 
   
-function closeModal() {
+function closeModal(e) {
   modalBg.style.display = "none";
-  hideHeroSection.style.display = "grid";
+  hideHeroSection.style.display = "block";
   hideFooter.style.display = "block";
 };
 
@@ -169,6 +169,7 @@ const concoursInvalid = document.querySelector(".validation_concours");
 textConcours.addEventListener("change", function() {
   validateCompetitions(this);
 });
+
 function validateCompetitions(inputconcours) {
   //regex creation
   const regexConcours = /[0-9]/g;
@@ -182,6 +183,7 @@ function validateCompetitions(inputconcours) {
     return false;
   }else{
     validateRadioChecked();
+    concoursInvalid.innerHTML = "";
     textConcours.style.borderStyle = "none";
     return true;
   }
@@ -197,8 +199,6 @@ function validateCompetitions(inputconcours) {
       let resConcours = parseInt(textConcours.value, 10);
       //resConcours is Not A Number
       if (Number.isNaN(resConcours)) {
-        concoursInvalid.innerHTML = "";
-        validCheckVille.innerHTML = "";
         return NaN;
       }else{
         if(resConcours === 0){ //resConcours = 0 so no need to check a radio
@@ -212,22 +212,22 @@ function validateCompetitions(inputconcours) {
               if(locations[i].checked === true){
                 validCheckVille.innerHTML = "";
                 return true;
+              }
+            }
+          for(let i = 0; i < locations.length; i++){
+            locations[i].addEventListener("input", function() {
+              if(locations[i].checked === true){
+                validCheckVille.innerHTML = "";
+                return true;
               }else{
-                for(let i = 0; i < locations.length; i++){
-                  locations[i].addEventListener("input", function() {
-                    if(locations[i].checked === true){
-                      validCheckVille.innerHTML = "";
-                      return true;
-                    }else{
-                      return false;
-                    };
-                  });
-                };
-              };        
+                return false;
+              };
+            });
           };
-        };
-      }
+        };  
+      };
     };
+    
 
 //********* validation terms of use ************
 //getting field checkbox1
@@ -254,26 +254,33 @@ function selectConditions(inputconditions){
 //********* validation formulaire ************
 const formSubmit = document.querySelector(".btn-submit");
 const form = document.querySelector("form");
+
 const validText = document.querySelector(".submit_text");
 //getting field to close the validation submission form
 const submitClose = document.querySelector(".close.submited");
-
+const submitCloseButton = document.querySelector(".submit_text > button");
 // close validation submission form
 submitClose.addEventListener("click", closeSubmission); 
+submitCloseButton.addEventListener("click", closeSubmission); 
   
 function closeSubmission() {
   validText.style.display = "none";
+  hideHeroSection.style.display = "block";
+  hideFooter.style.display = "block";
 };
 
-formSubmit.addEventListener("submit", function(e){
+formSubmit.addEventListener("click", function(e){
   e.preventDefault();
   validate(this);
 });
 
-function validate(e){
+function validate(){
   if((validateFirstname (textFirstname)) && (validateLastname (textLastname)) && (validateEmail (textEmail)) && (validateCompetitions (textConcours)) && (validateBirth (textBirthdates)) && (validateRadioChecked (locations)) && (selectConditions (conditions)))
   { form.submit();
-    return true;
+    closeModal();
+    validText.style.display = "block";
+    hideHeroSection.style.display = "none";
+    hideFooter.style.display = "none";
   }else{
       if(validateFirstname (textFirstname) === false){
         firstnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
@@ -303,38 +310,13 @@ function validate(e){
         concoursInvalid.innerHTML = "Une valeur numérique doit être saisie.";
         concoursInvalid.style.color = "red";
       };
-        if(validateCompetitions (textConcours) == ""){
-          concoursInvalid.innerHTML = "Vous devez entrer un nombre de tournois.";
-          concoursInvalid.style.color = "red";
-        };
       if(validateRadioChecked (locations) === false){
-      for(let i = 0; i < locations.length; i++){
-        locations[i].addEventListener("input", function(){
-          if(locations[i].checked === false){
             validCheckVille.innerHTML = "Veuillez sélectionner une ville";
             validCheckVille.style.color = "red";
-          }
-        });
-      };
-      };
+          };
       if(selectConditions (conditions) === false){
         validConditions.innerHTML = "Veuillez sélectionner les conditions d'utilisation";
         validConditions.style.color = "red";
       };
-      return false;
-    }
+  };
 };
-
-
-function validateSubmit(e){
-  if(validate(form) === true){
-    validText.style.display = "block";
-    console.log("validText");
-  }
-  else{console.log("NONvalidText");
-  return false;}
-};
-
-formSubmit.addEventListener("click", function() {
-  validateSubmit(this);
-});

@@ -16,7 +16,7 @@ body {
   flex-direction: column;
   font-family: var(--font-default);
   font-size: 18px;
-  max-width: 1300px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -31,18 +31,15 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
-}
-.header-logo {
-    float: left;
-}
-.main-navbar {
-    float: right;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 .topnav a {
-  float: left;
-  display: block;
-  color: #000000;
+  color: black;
   text-align: center;
   padding: 12px 12px;
   margin: 5px;
@@ -66,16 +63,31 @@ img {
 .topnav .icon {
   display: none;
 }
-
-@media screen and (max-width: 768px) {
+.main-navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+@media screen and (max-width: 1160px) {
+.main-navbar {
+  max-width: 500px;
+}
+.header-logo img{
+  max-width: 220px;
+}
+}
+@media screen and (max-width: 800px) {
+  .topnav{
+    align-items: center;
+  }
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
-    display: block;
+    display: flex;
+    color: red;
+    padding: 0;
   }
 }
-
-@media screen and (max-width: 768px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -83,20 +95,17 @@ img {
     top: 0;
   }
   .topnav.responsive a {
-    float: none;
-    display: block;
+    display: flex;
     text-align: left;
   }
-}
-
-
 
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
+    display: flex;
+  }
+  .header-logo img{
+    max-width: 190px;
   }
 } 
 
@@ -163,11 +172,11 @@ main {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(26, 39, 156, 0.4);
+  background-color: white;
 }
 
 .content {
-  margin: 5% auto;
+  margin: 10% auto;
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
@@ -178,6 +187,7 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+  box-shadow: darkgray 5px 10px 15px;
 }
 
 .modal-body {
@@ -330,10 +340,13 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
-
 /*Champs validation modal*/
-.validation_firstname, .validation_lastname, .validation_email, .validation_birthdate, .validation_concours, .validation_checkbox_ville, .validation_conditions {
+.validation_firstname, .validation_lastname, .validation_birthdate, .validation_concours, .validation_checkbox_ville, .validation_conditions {
   font-size: 18px;
+  color: red;
+}
+.validation_email{
+  font-size: 18px; 
 }
 
 /* custom select styles */
@@ -424,6 +437,10 @@ input[data-error]::after {
   position: relative;
   text-align: left;
   min-width: 424px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .hero-content::after {
   content: "";
@@ -441,12 +458,11 @@ input[data-error]::after {
 .hero-headline {
   font-size: 6rem;
   font-weight: normal;
-  white-space: nowrap;
+  width: 300%;
 }
 .hero-text {
   width: 146%;
   font-weight: normal;
-  margin-top: 57px;
   padding: 0;
 }
 .btn-signup {
@@ -455,7 +471,9 @@ input[data-error]::after {
   font-size: 1.3rem;
   padding: 15px 23px;
   margin: 0;
-  margin-top: 59px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  width: 80%;
 }
 .hero-img {
   grid-column: span 8;
@@ -465,6 +483,7 @@ input[data-error]::after {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
 }
 .copyrights {
   color: #fe142f;
@@ -481,7 +500,31 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+@media screen and (max-width: 1160px) {
+.content{
+  margin-top: 20%;
+}
+}
+@media screen and (max-width: 1000px) {
+.hero-headline {
+  font-size: 5rem;
+  width: 200%;
+}
+.hero-content {
+  padding: 40px 40px;
+}
+.hero-text{
+  width: 120%;
+}
+.hero-content::after {
+  content: unset;
+}
+}
+
 @media screen and (max-width: 800px) {
+  .bground{
+    background-color: transparent;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -489,17 +532,20 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
-  }
-  .hero-content::after {
-    content: unset;
+    padding: 0px;
+    text-align: justify;
+    box-sizing: border-box;
   }
   .hero-content .btn-signup {
     display: none;
   }
+  .btn-signup{
+    width: 50%;
+  }
   .hero-headline {
-    font-size: 4.5rem;
-    white-space: normal;
+    font-size: 3.5rem;
+    width: 100%;
+    text-align: justify;
   }
   .hero-text {
     width: unset;
@@ -515,9 +561,28 @@ footer {
     padding: 12px 35px;
   }
   .copyrights {
-    margin-top: 50px;
+    margin-top: 25px;
     text-align: center;
   }
+}
+
+@media screen and (max-width: 667px) {
+.hero-text{
+  font-size: 1.2rem;
+}
+}
+@media screen and (max-width: 530px) {
+.hero-headline {
+  font-size: 3rem;
+  white-space: normal;
+}
+.hero-content{
+  min-width: 0;
+}
+.hero-text{
+  font-size: 1.2rem;
+  margin-top: 35px;
+}
 }
 
 @keyframes modalopen {
@@ -532,23 +597,24 @@ footer {
 
 .submit_text{
   display: none;
-  width: 100%;
-  height: 100%;
   text-align: center;
   vertical-align: middle;
-  background-color: white;
-  position: fixed;
-  z-index: 1;
-  overflow: auto;
   top: 0;
   left: 0;
-  color: rgb(10, 156, 10);
+  color: white;
   font-size: 2rem;
+  border-radius: 10px;
+  padding: 15px 8%;
+  margin: 5% auto;
+  width: 100%;
+  max-width: 500px;
+  opacity: 1;
+  background: #232323;
+  border-radius: 10px;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
 }
 .validation_soumission{
   margin: 250px 5px;
-}
-.close.submited::after, .close.submited::before {
-  background-color: black;
-  z-index: 1;
 }

@@ -31,7 +31,7 @@ modalClose.addEventListener("click", closeModal);
   
 function closeModal(e) {
   modalBg.style.display = "none";
-  hideHeroSection.style.display = "block";
+  hideHeroSection.style.display = "grid";
   hideFooter.style.display = "block";
 };
 
@@ -269,7 +269,7 @@ submitCloseButton.addEventListener("click", function() {
 
 function closeMerci() {
   validText.style.display = "none";
-  hideHeroSection.style.display = "block";
+  hideHeroSection.style.display = "grid";
   hideFooter.style.display = "block";
 };
 
@@ -278,10 +278,11 @@ formSubmit.addEventListener("click", function(e){
   validate(this);
 });
 
-
 function validate(){
   if((validateFirstname (textFirstname)) && (validateLastname (textLastname)) && (validateEmail (textEmail)) && (validateCompetitions (textConcours)) && (validateBirth (textBirthdates)) && (validateRadioChecked (locations)) && (selectConditions (conditions)))
-  { form.submit();
+  { //form.submit();
+    closeModal();
+    form.reset();
     validText.style.display = "block";
     hideHeroSection.style.display = "none";
     hideFooter.style.display = "none";
@@ -324,4 +325,3 @@ function validate(){
       };
   };
 };
-

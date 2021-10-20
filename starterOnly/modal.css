@@ -599,17 +599,18 @@ footer {
   width: 100%;
   max-width: 500px;
   height: 100%;
-  position: fixed;
+  position: relative;
   z-index: 10;
   text-align: center;
   vertical-align: middle;
   background: #232323;
   border-radius: 10px;
-  margin: auto;
+  margin: 15px auto;
+  padding: 15px;
 }
 .merci{
   font-size: 1.3rem;
-  margin: auto;
+  margin: 40px auto;
 }
 .validation_soumission{
   margin: 30% 5%;

@@ -596,21 +596,23 @@ footer {
 
 .submit_text{
   display: none;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  position: fixed;
+  z-index: 10;
   text-align: center;
-  color: white;
-  font-size: 2rem;
-  padding: 15px 8%;
-  margin: 10% 12%;
-  width: 75%;
-  height: 75%;
+  vertical-align: middle;
   background: #232323;
   border-radius: 10px;
-  position: absolute;
-  z-index: 1;
+  margin: auto;
 }
-.submit_text > button{
-  font-size: 90%;
+.merci{
+  font-size: 1.3rem;
+  margin: auto;
 }
 .validation_soumission{
-  margin: 250px 5px;
+  margin: 30% 5%;
+  font-size: 1.6rem;
+  color: white;
 }

@@ -11,7 +11,7 @@ function editNav() {
 const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const modalClose = document.querySelector(".close");
+const modalClose = document.querySelector(".content > span");
 const hideHeroSection = document.querySelector(".hero-section");
 const hideFooter = document.querySelector("footer");
 const hideTopnav = document.querySelector(".topnav");
@@ -254,16 +254,20 @@ function selectConditions(inputconditions){
 //********* validation formulaire ************
 const formSubmit = document.querySelector(".btn-submit");
 const form = document.querySelector("form");
-
 const validText = document.querySelector(".submit_text");
 //getting field to close the validation submission form
-const submitClose = document.querySelector(".close.submited");
-const submitCloseButton = document.querySelector(".submit_text > button");
+const submitClose = document.querySelector(".submited");
+const submitCloseButton = document.querySelector(".merci");
+
 // close validation submission form
-submitClose.addEventListener("click", closeSubmission); 
-submitCloseButton.addEventListener("click", closeSubmission); 
-  
-function closeSubmission() {
+submitClose.addEventListener("click", function() {
+  closeMerci(this);
+}); 
+submitCloseButton.addEventListener("click", function() {
+  closeMerci(this);
+});  
+
+function closeMerci() {
   validText.style.display = "none";
   hideHeroSection.style.display = "block";
   hideFooter.style.display = "block";
@@ -274,10 +278,10 @@ formSubmit.addEventListener("click", function(e){
   validate(this);
 });
 
+
 function validate(){
   if((validateFirstname (textFirstname)) && (validateLastname (textLastname)) && (validateEmail (textEmail)) && (validateCompetitions (textConcours)) && (validateBirth (textBirthdates)) && (validateRadioChecked (locations)) && (selectConditions (conditions)))
   { form.submit();
-    closeModal();
     validText.style.display = "block";
     hideHeroSection.style.display = "none";
     hideFooter.style.display = "none";
@@ -320,3 +324,4 @@ function validate(){
       };
   };
 };
+

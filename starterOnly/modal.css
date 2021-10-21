@@ -133,7 +133,7 @@ main {
   cursor: pointer;
 }
 
-.modal-btn:hover {
+.btn-signup:hover {
   background: #3876ac;
 }
 
@@ -155,7 +155,7 @@ main {
   font-size: 16px;
 }
 
-.button:hover {
+.btn-submit:hover {
   background: #3876ac;
 }
 
@@ -425,7 +425,7 @@ input[data-error]::after {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   overflow: hidden;
-  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 9px 6px rgba(0, 0, 0, 0.267);
   margin-bottom: 10px;
 }
 .hero-content {
@@ -549,6 +549,7 @@ footer {
   .hero-text {
     width: unset;
     font-size: 1.5rem;
+    margin-top: 35px;
   }
   .hero-img img {
     border-radius: 10px;
@@ -580,7 +581,6 @@ footer {
 }
 .hero-text{
   font-size: 1.2rem;
-  margin-top: 35px;
 }
 }
 
@@ -594,7 +594,7 @@ footer {
   }
 }
 
-.submit_text{
+.submit_merci{
   display: none;
   width: 100%;
   max-width: 500px;
@@ -605,7 +605,7 @@ footer {
   vertical-align: middle;
   background: #232323;
   border-radius: 10px;
-  margin: 15px auto;
+  margin: 15% auto;
   padding: 15px;
 }
 .merci{

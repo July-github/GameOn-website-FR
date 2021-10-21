@@ -22,17 +22,17 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalBg.style.display = "block";
-  hideHeroSection.style.display = "none";
+  hideHeroSection.style.opacity = "0";
   hideFooter.style.display = "none";
 };
 
 // close modal form
 modalClose.addEventListener("click", closeModal); 
   
-function closeModal(e) {
+function closeModal() {
   modalBg.style.display = "none";
-  hideHeroSection.style.display = "grid";
   hideFooter.style.display = "block";
+  hideHeroSection.style.opacity = "1";
 };
 
 //********* validation firstname ************
@@ -48,7 +48,7 @@ textFirstname.addEventListener("input", function() {
 
 function validateFirstname(inputfirstname) {
   //regex creation
-  const regexFirstname = /^[a-zA-ZÀ-ÿ]{2,}/g;
+  const regexFirstname = /^[a-zA-ZÀ-ÿ-]{2,}/g;
   //regex test on the field firstname
   const validFirstname = regexFirstname.test(textFirstname.value);
   if(validFirstname === false) {
@@ -77,7 +77,7 @@ textLastname.addEventListener("change", function() {
 
 function validateLastname(inputlastname) {
   //regex creation
-  const regexLastname = /^[a-zA-ZÀ-ÿ]{2,}/g;
+  const regexLastname = /^[a-zA-ZÀ-ÿ-]{2,}/g;
   //regex test on the field Lastname
   const validLastname = regexLastname.test(textLastname.value);
   if(validLastname === false) {
@@ -269,8 +269,8 @@ submitCloseButton.addEventListener("click", function() {
 
 function closeMerci() {
   validText.style.display = "none";
-  hideHeroSection.style.display = "grid";
   hideFooter.style.display = "block";
+  hideHeroSection.style.opacity = "1";
 };
 
 formSubmit.addEventListener("click", function(e){
@@ -283,8 +283,9 @@ function validate(){
   { //form.submit();
     closeModal();
     form.reset();
+    emailInvalid.innerHTML = "";
     validText.style.display = "block";
-    hideHeroSection.style.display = "none";
+    hideHeroSection.style.opacity = "0";
     hideFooter.style.display = "none";
   }else{
       if(validateFirstname (textFirstname) === false){

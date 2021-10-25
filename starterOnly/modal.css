@@ -60,9 +60,10 @@ img {
   border-radius: 15px;
 }
 
-.topnav .icon {
+.topnav .icon, .topnav.responsive .icon {
   display: none;
 }
+
 .main-navbar {
   display: flex;
   flex-wrap: wrap;
@@ -78,6 +79,9 @@ img {
 }
 }
 @media screen and (max-width: 800px) {
+  .main-navbar {
+    padding-right: 5px;
+  }
   .topnav{
     align-items: center;
   }
@@ -85,19 +89,33 @@ img {
   .topnav a.icon {
     display: flex;
     color: red;
-    padding: 0;
+    padding: 4px;
+    font-size: 20px;
+  }
+  .topnav a.icon:hover {
+    display: flex;
+    color: white;
+    background-color: red;
+  }
+  .topnav.responsive .icon {
+    display: flex;
   }
 }
+
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
     top: 0;
+    margin-right: 0;
+    margin-left: 3px;
   }
   .topnav.responsive a {
     display: flex;
-    text-align: left;
+    text-align: right;
+    margin-right: 15px;
   }
+
 
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
@@ -217,20 +235,31 @@ input {
 }
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 14px;
   color: #e54858;
   display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: right;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
 }
-.formData[data-error-visible="true"]::after {
+.formData[data-error-visible="true"]::after{
   opacity: 1;
 }
-.formData[data-error-visible="true"] .text-control {
+.formData[data-error-jeune]::after{
+  content: attr(data-error-jeune);
+  opacity: 0;
+}
+.formData[data-error-jeune-visible="true"]::after{
+  opacity: 1;
+}
+.formData[data-error-empty="true"]::after{
+  content: "Ce champ doit être complété";
+  opacity: 1;
+}
+input[data-error-visible="true"] {
   border: 2px solid #e54858;
 }
 /* 

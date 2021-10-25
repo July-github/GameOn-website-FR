@@ -22,7 +22,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalBg.style.display = "block";
-  hideHeroSection.style.opacity = "0";
+  hideHeroSection.style.visibility = "hidden";
   hideFooter.style.display = "none";
 };
 
@@ -32,14 +32,13 @@ modalClose.addEventListener("click", closeModal);
 function closeModal() {
   modalBg.style.display = "none";
   hideFooter.style.display = "block";
-  hideHeroSection.style.opacity = "1";
+  hideHeroSection.style.visibility = "visible";
 };
 
 //********* validation firstname ************
 //getting field firstname
 const textFirstname = document.getElementById("first");
-//getting field invalid text
-const firstnameInvalid = document.querySelector(".validation_firstname");
+const parentFirst = textFirstname.parentElement;
 
 //listening to a change from the field firstname
 textFirstname.addEventListener("input", function() {
@@ -52,14 +51,12 @@ function validateFirstname(inputfirstname) {
   //regex test on the field firstname
   const validFirstname = regexFirstname.test(textFirstname.value);
   if(validFirstname === false) {
-    firstnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-    textFirstname.style.borderStyle = "solid";
-    textFirstname.style.borderColor = "red";
-    textFirstname.style.borderWidth = "1px";
+    textFirstname.setAttribute("data-error-visible", true);
+    parentFirst.setAttribute("data-error-visible", true);
     return false;
   }else {
-    firstnameInvalid.innerHTML = ""; 
-    textFirstname.style.borderStyle = "none";
+    textFirstname.removeAttribute("data-error-visible");
+    parentFirst.removeAttribute("data-error-visible");
     return true;
   }
 };
@@ -67,8 +64,7 @@ function validateFirstname(inputfirstname) {
 //********* validation lastname ************
 //getting field lastname
 const textLastname = document.getElementById("last");
-//getting field invalid text
-const lastnameInvalid = document.querySelector(".validation_lastname");
+const parentLast = textLastname.parentElement;
 
 //listening to a change from the field Lastname
 textLastname.addEventListener("change", function() {
@@ -81,14 +77,12 @@ function validateLastname(inputlastname) {
   //regex test on the field Lastname
   const validLastname = regexLastname.test(textLastname.value);
   if(validLastname === false) {
-    lastnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    textLastname.style.borderStyle = "solid";
-    textLastname.style.borderColor = "red";
-    textLastname.style.borderWidth = "1px";
+    textLastname.setAttribute("data-error-visible", true);
+    parentLast.setAttribute("data-error-visible", true);
     return false;
   }else {
-    lastnameInvalid.innerHTML = "";
-    textLastname.style.borderStyle = "none";
+    textLastname.removeAttribute("data-error-visible");
+    parentLast.removeAttribute("data-error-visible");
     return true;
   }
 };
@@ -96,8 +90,7 @@ function validateLastname(inputlastname) {
 //********* validation email ************
 //getting field email
 const textEmail = document.getElementById("email");
-//getting field invalid text
-const emailInvalid = document.querySelector(".validation_email");
+const parentEmail = textEmail.parentElement;
 
 //listening to a change from the field email
 textEmail.addEventListener("change", function() {
@@ -110,16 +103,14 @@ function validateEmail(inputemail) {
   //regex test on the field email
   const validEmail = regexEmail.test(textEmail.value);
   if(validEmail === false) {
-    emailInvalid.innerHTML = "L'adresse électronique est invalide.";
-    emailInvalid.style.color = "red";
-    textEmail.style.borderStyle = "solid";
-    textEmail.style.borderColor = "red";
-    textEmail.style.borderWidth = "1px";
+    textEmail.setAttribute("data-error-visible", true);
+    parentEmail.setAttribute("data-error-visible", true);
+    parentEmail.removeAttribute("data-error-empty", true);
     return false;
   }else{
-    emailInvalid.innerHTML = "L'adresse électronique est valide.";
-    emailInvalid.style.color = "green";
-    textEmail.style.borderStyle = "none";
+    textEmail.removeAttribute("data-error-visible");
+    parentEmail.removeAttribute("data-error-visible");
+    parentEmail.removeAttribute("data-error-empty", true);
     return true;
   }
 };
@@ -127,8 +118,7 @@ function validateEmail(inputemail) {
 //********* validation birthdate ************
 //getting field birthdate
 const textBirthdates = document.getElementById("birthdate");
-//getting field invalid text
-const birthdateInvalid = document.querySelector(".validation_birthdate");
+const parentBirthdates = textBirthdates.parentElement;
 
 textBirthdates.addEventListener("change", function(){
   validateBirth(this);
@@ -142,28 +132,38 @@ function validateBirth (textBirthdates){
   let diffYear = Math.abs(nowYear - birthYear);
   //diffYear is Not A Number
   if (Number.isNaN(diffYear)) {
-    concoursInvalid.innerHTML = "";
-    validCheckVille.innerHTML = "";
+    textBirthdates.removeAttribute("data-error-visible");
+    parentBirthdates.removeAttribute("data-error-visible");
+    parentBirthdates.removeAttribute("data-error-empty", true);
     return NaN;
   }
   if ((diffYear <= 120) && (diffYear > 5)){
-    birthdateInvalid.innerHTML = "";
-    textBirthdates.style.borderStyle = "none";
+    textBirthdates.removeAttribute("data-error-visible");
+    parentBirthdates.removeAttribute("data-error-visible");
+    parentBirthdates.removeAttribute("data-error-jeune-visible", true);
+    parentBirthdates.removeAttribute("data-error-empty", true);
     return true;
   }else{
-    birthdateInvalid.innerHTML = "L'année n'est pas valide.";
-    textBirthdates.style.borderStyle = "solid";
-    textBirthdates.style.borderColor = "red";
-    textBirthdates.style.borderWidth = "1px";
-    return false;
+    if(diffYear < 5){
+      textBirthdates.setAttribute("data-error-visible", true);
+      parentBirthdates.setAttribute("data-error-jeune-visible", true);
+      parentBirthdates.removeAttribute("data-error-empty", true);
+      parentBirthdates.removeAttribute("data-error-empty", true);
+      return false;
+    }else{
+      textBirthdates.setAttribute("data-error-visible", true);
+      parentBirthdates.setAttribute("data-error-visible", true);
+      parentBirthdates.removeAttribute("data-error-empty", true);
+      parentBirthdates.removeAttribute("data-error-empty", true);
+      return false;
     }
+  };
 };
 
 //********* validation number of competitions ************
 //getting field nombre de concours
 const textConcours = document.getElementById("quantity");
-//getting field invalid text
-const concoursInvalid = document.querySelector(".validation_concours");
+const parentConcours = textConcours.parentElement;
 
 //listening to a change from the field nombre de concours
 textConcours.addEventListener("change", function() {
@@ -171,20 +171,22 @@ textConcours.addEventListener("change", function() {
 });
 
 function validateCompetitions(inputconcours) {
+  //transform a negative number into a positive
+const absConcours = Math.abs(textConcours.value);
   //regex creation
   const regexConcours = /[0-9]/g;
   //regex test on the field nombre de concours
-  const validConcours = regexConcours.test(textConcours.value);
+  const validConcours = regexConcours.test(absConcours);
   if(validConcours === false) {
-    concoursInvalid.innerHTML = "Une valeur numérique doit être saisie.";
-    textConcours.style.borderStyle = "solid";
-    textConcours.style.borderColor = "red";
-    textConcours.style.borderWidth = "1px";
+    textConcours.setAttribute("data-error-visible", true);
+    parentConcours.setAttribute("data-error-visible", true);
+    parentConcours.removeAttribute("data-error-empty", true);
     return false;
   }else{
     validateRadioChecked();
-    concoursInvalid.innerHTML = "";
-    textConcours.style.borderStyle = "none";
+    textConcours.removeAttribute("data-error-visible");
+    parentConcours.removeAttribute("data-error-visible");
+    parentConcours.removeAttribute("data-error-empty", true);
     return true;
   }
 };
@@ -199,25 +201,30 @@ function validateCompetitions(inputconcours) {
       let resConcours = parseInt(textConcours.value, 10);
       //resConcours is Not A Number
       if (Number.isNaN(resConcours)) {
+        textConcours.removeAttribute("data-error-visible");
+        parentConcours.removeAttribute("data-error-visible");
+        parentConcours.removeAttribute("data-error-empty", true);
         return NaN;
       }else{
         if(resConcours === 0){ //resConcours = 0 so no need to check a radio
-          concoursInvalid.innerHTML = "";
-          validCheckVille.innerHTML = "";
+          textConcours.removeAttribute("data-error-visible");
+          parentConcours.removeAttribute("data-error-visible");
+          parentConcours.removeAttribute("data-error-empty", true);
+          document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
           return true;
         }else{
-          validCheckVille.innerHTML = "Veuillez sélectionner une ville";
+          document.getElementById("location1").parentElement.setAttribute("data-error-visible", true);
           //listening to a change from the radio button
           for(let i = 0; i < locations.length; i++){
               if(locations[i].checked === true){
-                validCheckVille.innerHTML = "";
+                document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
                 return true;
               }
             }
           for(let i = 0; i < locations.length; i++){
             locations[i].addEventListener("input", function() {
               if(locations[i].checked === true){
-                validCheckVille.innerHTML = "";
+                document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
                 return true;
               }else{
                 return false;
@@ -232,8 +239,6 @@ function validateCompetitions(inputconcours) {
 //********* validation terms of use ************
 //getting field checkbox1
 const conditions = document.getElementById("checkbox1");
-//getting field invalid text
-const validConditions = document.querySelector(".validation_conditions");
 
 //listening to a change from the button conditions d'utilisation
 conditions.addEventListener("click", function(){
@@ -242,11 +247,10 @@ conditions.addEventListener("click", function(){
 
 function selectConditions(inputconditions){
   if(conditions.checked === true){
-    validConditions.innerHTML = "";
+    document.getElementById("checkbox1").parentElement.removeAttribute("data-error-visible");
     return true;
   }else{
-    validConditions.innerHTML = "Veuillez sélectionner les conditions d'utilisation";
-    validConditions.style.color = "red";
+    document.getElementById("checkbox1").parentElement.setAttribute("data-error-visible", true);
     return false;
   }
 };
@@ -254,7 +258,7 @@ function selectConditions(inputconditions){
 //********* validation formulaire ************
 const formSubmit = document.querySelector(".btn-submit");
 const form = document.querySelector("form");
-const validText = document.querySelector(".submit_text");
+const validText = document.querySelector(".submit_merci");
 //getting field to close the validation submission form
 const submitClose = document.querySelector(".submited");
 const submitCloseButton = document.querySelector(".merci");
@@ -270,7 +274,7 @@ submitCloseButton.addEventListener("click", function() {
 function closeMerci() {
   validText.style.display = "none";
   hideFooter.style.display = "block";
-  hideHeroSection.style.opacity = "1";
+  hideHeroSection.style.visibility = "visible";
 };
 
 formSubmit.addEventListener("click", function(e){
@@ -280,49 +284,49 @@ formSubmit.addEventListener("click", function(e){
 
 function validate(){
   if((validateFirstname (textFirstname)) && (validateLastname (textLastname)) && (validateEmail (textEmail)) && (validateCompetitions (textConcours)) && (validateBirth (textBirthdates)) && (validateRadioChecked (locations)) && (selectConditions (conditions)))
-  { //form.submit();
-    closeModal();
+  { closeModal();
     form.reset();
-    emailInvalid.innerHTML = "";
     validText.style.display = "block";
-    hideHeroSection.style.opacity = "0";
+    hideHeroSection.style.visibility = "hidden";
     hideFooter.style.display = "none";
   }else{
       if(validateFirstname (textFirstname) === false){
-        firstnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-        firstnameInvalid.style.color = "red";
+        textFirstname.setAttribute("data-error-visible", true);
+        parentFirst.setAttribute("data-error-visible", true);
       };
       if(validateLastname (textLastname) === false){
-        lastnameInvalid.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-        lastnameInvalid.style.color = "red";
+        textLastname.setAttribute("data-error-visible", true);
+        parentLast.setAttribute("data-error-visible", true);
       };
       if(validateEmail (textEmail) === false){
-        emailInvalid.innerHTML = "L'adresse électronique est invalide.";
-        emailInvalid.style.color = "red";
+        textEmail.setAttribute("data-error-visible", true);
+        parentEmail.setAttribute("data-error-visible", true);
       };
         if(validateEmail (textEmail) == ""){
-          emailInvalid.innerHTML = "Vous devez entrer votre e-mail.";
-          emailInvalid.style.color = "red";
+          textEmail.setAttribute("data-error-visible", true);
+          parentEmail.setAttribute("data-error-empty", true);
         };
       if(validateBirth (textBirthdates) === false){
-        birthdateInvalid.innerHTML = "L'année n'est pas valide.";
-        birthdateInvalid.style.color = "red";
+        textBirthdates.setAttribute("data-error-visible", true);
+        parentBirthdates.setAttribute("data-error-visible", true);
       };
           if(validateBirth (textBirthdates) == ""){
-            birthdateInvalid.innerHTML = "Vous devez entrer votre date de naissance.";
-            emailInvalid.style.color = "red";
+            textBirthdates.setAttribute("data-error-visible", true);
+            parentBirthdates.setAttribute("data-error-empty", true);
           };
       if(validateCompetitions (textConcours) === false){
-        concoursInvalid.innerHTML = "Une valeur numérique doit être saisie.";
-        concoursInvalid.style.color = "red";
+        textConcours.setAttribute("data-error-visible", true);
+        parentConcours.setAttribute("data-error-visible", true);
       };
+        if(validateCompetitions (textConcours) === ""){
+          textConcours.setAttribute("data-error-visible", true);
+          parentConcours.setAttribute("data-error-empty", true);
+        };
       if(validateRadioChecked (locations) === false){
-            validCheckVille.innerHTML = "Veuillez sélectionner une ville";
-            validCheckVille.style.color = "red";
+        document.getElementById("location1").parentElement.setAttribute("data-error-visible", true);
           };
       if(selectConditions (conditions) === false){
-        validConditions.innerHTML = "Veuillez sélectionner les conditions d'utilisation";
-        validConditions.style.color = "red";
+        document.getElementById("checkbox1").parentElement.setAttribute("data-error-visible", true);
       };
   };
 };

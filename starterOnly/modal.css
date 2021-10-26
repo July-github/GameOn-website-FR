@@ -235,7 +235,7 @@ input {
 }
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 14px;
+  font-size: 12px;
   color: #e54858;
   display: block;
   margin-top: 10px;
@@ -645,4 +645,8 @@ footer {
   margin: 30% 5%;
   font-size: 1.6rem;
   color: white;
+}
+
+.backModal{
+  display: none;
 }

@@ -83,7 +83,7 @@ img {
     padding-right: 5px;
   }
   .topnav{
-    align-items: center;
+    align-items: flex-start;
   }
   .topnav a {display: none;}
   .topnav a.icon {
@@ -245,14 +245,13 @@ input {
   opacity: 0;
   transition: 0.3s;
 }
-.formData[data-error-visible="true"]::after{
+.formData[data-error-invalid-visible="true"]::after{
+  content:attr(data-error);
   opacity: 1;
 }
-.formData[data-error-jeune]::after{
-  content: attr(data-error-jeune);
-  opacity: 0;
-}
+
 .formData[data-error-jeune-visible="true"]::after{
+  content: attr(data-error-jeune);
   opacity: 1;
 }
 .formData[data-error-empty="true"]::after{
@@ -646,7 +645,9 @@ footer {
   font-size: 1.6rem;
   color: white;
 }
-
 .backModal{
   display: none;
+}
+.visibleModal{
+  display: block;
 }

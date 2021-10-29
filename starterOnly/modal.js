@@ -21,7 +21,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
-  modalBg.style.display = "block";
+  modalBg.classList.add("visibleModal");
   hideHeroSection.classList.add("backModal");
   hideFooter.classList.add("backModal");
 };
@@ -30,7 +30,7 @@ function launchModal() {
 modalClose.addEventListener("click", closeModal); 
   
 function closeModal() {
-  modalBg.style.display = "none";
+  modalBg.classList.remove("visibleModal");
   hideFooter.classList.remove("backModal");
   hideHeroSection.classList.remove("backModal");
 };
@@ -53,18 +53,18 @@ function validateFirstname(textFirstname) {
   const validFirstname = regexFirstname.test(textFirstname.value);
   if(textFirstname.value === ""){
     textFirstname.setAttribute("data-error-visible", true);
-    parentFirst.removeAttribute("data-error-visible");
+    parentFirst.removeAttribute("data-error-invalid-visible");
     parentFirst.setAttribute("data-error-empty", true);
     return false;
   }
   if(validFirstname === false) {
     textFirstname.setAttribute("data-error-visible", true);
-    parentFirst.setAttribute("data-error-visible", true);
+    parentFirst.setAttribute("data-error-invalid-visible", true);
     parentFirst.removeAttribute("data-error-empty");
     return false;
   }else {
     textFirstname.removeAttribute("data-error-visible");
-    parentFirst.removeAttribute("data-error-visible");
+    parentFirst.removeAttribute("data-error-invalid-visible");
     parentFirst.removeAttribute("data-error-empty");
     return true;
   }
@@ -77,7 +77,7 @@ const textLastname = document.getElementById("last");
 const parentLast = textLastname.parentElement;
 
 //listening to a change from the field Lastname
-textLastname.addEventListener("change", function() {
+textLastname.addEventListener("input", function() {
   validateLastname(this);
 });
 
@@ -89,19 +89,19 @@ function validateLastname(textLastname) {
 
   if(textLastname.value === ""){
     textLastname.setAttribute("data-error-visible", true);
-    parentLast.removeAttribute("data-error-visible");
+    parentLast.removeAttribute("data-error-invalid-visible");
     parentLast.setAttribute("data-error-empty", true);
     return false;
   }
   if(validLastname === false) {
     textLastname.setAttribute("data-error-visible", true);
     parentLast.removeAttribute("data-error-empty");
-    parentLast.setAttribute("data-error-visible", true);
+    parentLast.setAttribute("data-error-invalid-visible", true);
     return false;
   }else {
     textLastname.removeAttribute("data-error-visible");
     parentLast.removeAttribute("data-error-empty");
-    parentLast.removeAttribute("data-error-visible");
+    parentLast.removeAttribute("data-error-invalid-visible");
     return true;
   }
 };
@@ -113,7 +113,7 @@ const textEmail = document.getElementById("email");
 const parentEmail = textEmail.parentElement;
 
 //listening to a change from the field email
-textEmail.addEventListener("change", function() {
+textEmail.addEventListener("input", function() {
   validateEmail(this);
 });
 
@@ -125,18 +125,18 @@ function validateEmail(textEmail) {
 
   if(textEmail.value === ""){
     textEmail.setAttribute("data-error-visible", true);
-    parentEmail.removeAttribute("data-error-visible");
+    parentEmail.removeAttribute("data-error-invalid-visible");
     parentEmail.setAttribute("data-error-empty", true);
     return false;
   }
   if(validEmail === false) {
     textEmail.setAttribute("data-error-visible", true);
-    parentEmail.setAttribute("data-error-visible", true);
+    parentEmail.setAttribute("data-error-invalid-visible", true);
     parentEmail.removeAttribute("data-error-empty");
     return false;
   }else{
     textEmail.removeAttribute("data-error-visible");
-    parentEmail.removeAttribute("data-error-visible");
+    parentEmail.removeAttribute("data-error-invalid-visible");
     parentEmail.removeAttribute("data-error-empty");
     return true;
   }
@@ -148,7 +148,7 @@ const textBirthdates = document.getElementById("birthdate");
 //getting its parent 'formData'
 const parentBirthdates = textBirthdates.parentElement;
 
-textBirthdates.addEventListener("change", function(){
+textBirthdates.addEventListener("input", function(){
   validateBirth(this);
 });
 
@@ -170,6 +170,8 @@ function validateBirth (textBirthdates){
     textBirthdates.removeAttribute("data-error-visible");
     parentBirthdates.removeAttribute("data-error-visible");
     parentBirthdates.removeAttribute("data-error-empty");
+    parentBirthdates.removeAttribute("data-error-invalid-visible");
+    parentBirthdates.removeAttribute("data-error-jeune-visible");
     return NaN;
   }
   if ((diffYear <= 120) && (diffYear > 5)){
@@ -177,17 +179,20 @@ function validateBirth (textBirthdates){
     parentBirthdates.removeAttribute("data-error-visible");
     parentBirthdates.removeAttribute("data-error-jeune-visible");
     parentBirthdates.removeAttribute("data-error-empty");
+    parentBirthdates.removeAttribute("data-error-invalid-visible");
     return true;
   }else{
     if(diffYear < 5){
       textBirthdates.setAttribute("data-error-visible", true);
       parentBirthdates.setAttribute("data-error-jeune-visible", true);
       parentBirthdates.removeAttribute("data-error-empty");
+      parentBirthdates.removeAttribute("data-error-invalid-visible");
       return false;
     }else{
       textBirthdates.setAttribute("data-error-visible", true);
-      parentBirthdates.setAttribute("data-error-visible", true);
+      parentBirthdates.setAttribute("data-error-invalid-visible", true);
       parentBirthdates.removeAttribute("data-error-empty");
+      parentBirthdates.removeAttribute("data-error-jeune-visible");
       return false;
     }
   };
@@ -200,7 +205,7 @@ const textConcours = document.getElementById("quantity");
 const parentConcours = textConcours.parentElement;
 
 //listening to a change from the field nombre de concours
-textConcours.addEventListener("change", function() {
+textConcours.addEventListener("input", function() {
   validateCompetitions(this);
 });
 
@@ -212,7 +217,7 @@ function validateCompetitions(textConcours) {
 
   if(validConcours === false) {
     textConcours.setAttribute("data-error-visible", true);
-    parentConcours.setAttribute("data-error-visible", true);
+    parentConcours.setAttribute("data-error-invalid-visible", true);
     parentConcours.removeAttribute("data-error-empty");
     return false;
   }else{
@@ -221,7 +226,7 @@ function validateCompetitions(textConcours) {
     textConcours.value = absConcours;
     validateRadioChecked();
     textConcours.removeAttribute("data-error-visible");
-    parentConcours.removeAttribute("data-error-visible");
+    parentConcours.removeAttribute("data-error-invalid-visible");
     parentConcours.removeAttribute("data-error-empty");
     return true;
   };
@@ -239,29 +244,29 @@ function validateRadioChecked(){
   //resConcours is Not A Number
   if (Number.isNaN(resConcours)) {
     textConcours.setAttribute("data-error-visible", true);
-    parentConcours.removeAttribute("data-error-visible");
+    parentConcours.removeAttribute("data-error-invalid-visible");
     parentConcours.setAttribute("data-error-empty", true);
     return NaN;
   }else{
     if(resConcours === 0){ //resConcours = 0 so no need to check a radio
       textConcours.removeAttribute("data-error-visible");
-      parentConcours.removeAttribute("data-error-visible");
+      parentConcours.removeAttribute("data-error-invalid-visible");
       parentConcours.removeAttribute("data-error-empty", true);
-      document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
+      document.getElementById("location1").parentElement.removeAttribute("data-error-invalid-visible");
       return true;
     }else{
-      document.getElementById("location1").parentElement.setAttribute("data-error-visible", true);
+      document.getElementById("location1").parentElement.setAttribute("data-error-invalid-visible", true);
       //listening to a change from the radio button
       for(let i = 0; i < locations.length; i++){
         if(locations[i].checked === true){
-          document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
+          document.getElementById("location1").parentElement.removeAttribute("data-error-invalid-visible");
           return true;
         }
       }
       for(let i = 0; i < locations.length; i++){
         locations[i].addEventListener("input", function() {
           if(locations[i].checked === true){
-            document.getElementById("location1").parentElement.removeAttribute("data-error-visible");
+            document.getElementById("location1").parentElement.removeAttribute("data-error-invalid-visible");
             return true;
           }else{
             return false;
@@ -283,10 +288,10 @@ conditions.addEventListener("click", function(){
 
 function selectConditions(inputconditions){
   if(conditions.checked === true){
-    document.getElementById("checkbox1").parentElement.removeAttribute("data-error-visible");
+    document.getElementById("checkbox1").parentElement.removeAttribute("data-error-invalid-visible");
     return true;
   }else{
-    document.getElementById("checkbox1").parentElement.setAttribute("data-error-visible", true);
+    document.getElementById("checkbox1").parentElement.setAttribute("data-error-invalid-visible", true);
     return false;
   }
 };
@@ -315,7 +320,7 @@ submitCloseButton.addEventListener("click", function() {
 });  
 
 function closeMerci() {
-  validText.style.display = "none";
+  validText.classList.remove("visibleModal");
   hideFooter.classList.remove("backModal");
   hideHeroSection.classList.remove("backModal");
 };
@@ -332,7 +337,7 @@ function validate(){
   if((isFirstValid) && (isLastValid) && (isEmailValid) && (isBirthValid) && (isConcoursValid) && (isLocationValid) && (isConditionsValid)){ 
     closeModal();
     form.reset();
-    validText.style.display = "block";
+    validText.classList.add("visibleModal");
     hideHeroSection.classList.add("backModal");
     hideFooter.classList.add("backModal");
   }else{return false;}
